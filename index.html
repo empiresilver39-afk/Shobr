@@ -1,0 +1,334 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#100811">
+<title>My Dearest Dija ❤️</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+
+<style>
+*{box-sizing:border-box}
+:root{--gold:#e9c6b5;--pink:#f2b9ca;--bg:#100811}
+body{
+ margin:0;background:var(--bg);color:#fff;
+ font-family:'Cormorant Garamond',serif;
+ overflow-x:hidden;
+}
+body:before{
+ content:"";position:fixed;inset:0;pointer-events:none;
+ background:
+ radial-gradient(ellipse at 20% 20%,#54223b55,transparent 55%),
+ radial-gradient(ellipse at 80% 80%,#39204455,transparent 55%);
+ z-index:-1;
+}
+#lock{
+ position:fixed;inset:0;z-index:1000;
+ display:flex;align-items:center;justify-content:center;
+ background:linear-gradient(145deg,#100811,#281323,#100811);
+ padding:25px;
+}
+.lock-card{text-align:center;width:100%;max-width:360px}
+.lock-heart{font-size:48px;color:#e9a9bd;animation:pulse 2s infinite}
+.lock-card h1{
+ font-family:'Playfair Display',serif;font-weight:400;
+ font-size:35px;color:#f2d7dc
+}
+.lock-card p{color:#c9aab5;font-size:19px}
+#password{
+ width:100%;padding:16px;border:1px solid #a66b8066;
+ background:#ffffff0b;color:white;text-align:center;
+ border-radius:30px;font-size:22px;letter-spacing:8px;
+ outline:none;margin:18px 0
+}
+#unlock{
+ width:100%;padding:15px;border:0;border-radius:30px;
+ background:linear-gradient(100deg,#c8879e,#e9b9c9);
+ color:#29101c;font-size:18px;font-weight:bold;
+ cursor:pointer
+}
+#error{color:#ff9cae;min-height:25px}
+#site{display:none}
+header{
+ min-height:90vh;display:flex;flex-direction:column;
+ align-items:center;justify-content:center;text-align:center;
+ padding:35px 20px;position:relative;
+}
+.eyebrow{color:var(--gold);letter-spacing:7px;font-size:13px}
+header h1{
+ font-family:'Playfair Display',serif;
+ font-weight:400;font-size:clamp(48px,12vw,85px);
+ margin:20px 0;color:#f5d9df;
+ text-shadow:0 0 35px #e99ab655;
+}
+header .sub{font-size:25px;color:#d9b9c4;font-style:italic}
+.scroll{
+ margin-top:65px;color:#d6a8b8;letter-spacing:4px;
+ font-size:13px;animation:float 2.5s infinite
+}
+.music{
+ position:fixed;top:18px;right:18px;z-index:50;
+ background:#2b1725dd;border:1px solid #e8b7c477;
+ color:#f4d9e0;padding:11px 17px;border-radius:30px;
+ cursor:pointer;backdrop-filter:blur(10px)
+}
+.gallery{max-width:900px;margin:auto;padding:15px 22px 70px}
+.memory{
+ position:relative;margin:0 auto 65px;
+ width:100%;max-width:600px;
+ perspective:1200px;
+ opacity:0;transform:translateY(80px) scale(.94);
+ transition:opacity 1.1s ease,transform 1.1s cubic-bezier(.2,.8,.2,1)
+}
+.memory.show{opacity:1;transform:translateY(0) scale(1)}
+.memory:nth-child(even){transform:translateY(80px) scale(.94) rotateY(-5deg)}
+.memory:nth-child(even).show{transform:translateY(0) scale(1) rotateY(0)}
+.photo-frame{
+ padding:10px;background:linear-gradient(145deg,#f5d6d5,#9b687d,#f0c7c6);
+ border-radius:5px;
+ box-shadow:0 25px 70px #0009,0 0 35px #e6a3bd22;
+ overflow:hidden;position:relative;
+}
+.photo-frame img{
+ width:100%;display:block;max-height:690px;
+ object-fit:cover;border-radius:3px;
+ transition:transform 1.5s cubic-bezier(.2,.7,.2,1),filter 1.5s;
+}
+.memory.show img{transform:scale(1.025)}
+.photo-frame:after{
+ content:"";position:absolute;inset:0;pointer-events:none;
+ background:linear-gradient(115deg,transparent 35%,#ffffff25 50%,transparent 65%);
+ transform:translateX(-130%);
+ transition:transform 1.4s ease .4s
+}
+.memory.show .photo-frame:after{transform:translateX(130%)}
+.photo-caption{
+ text-align:center;font-style:italic;
+ font-size:23px;color:#eac8d1;padding:17px
+}
+.section-title{
+ text-align:center;color:#eac6d0;
+ font-family:'Playfair Display',serif;
+ font-size:38px;font-weight:400;margin:35px 0 45px
+}
+.letter{
+ max-width:720px;margin:30px auto 100px;padding:35px 27px;
+ border:1px solid #d8a9b633;
+ background:linear-gradient(145deg,#ffffff09,#ffffff03);
+ box-shadow:0 20px 70px #0005;
+ border-radius:8px;
+}
+.letter h2{
+ font-family:'Playfair Display',serif;
+ color:#f0cbd4;font-size:35px;font-weight:400;
+ text-align:center;margin:0 0 30px
+}
+.letter p{
+ font-size:23px;line-height:1.8;color:#e8d5dc;
+ margin:0 0 19px
+}
+.signature{
+ text-align:right;color:#f0b9ca;
+ font-size:27px;font-style:italic;margin-top:30px
+}
+footer{
+ text-align:center;padding:35px 15px 65px;
+ color:#cba8b5;font-size:18px
+}
+.heart{
+ position:fixed;bottom:-30px;pointer-events:none;
+ z-index:10;color:#ed9eb8;
+ animation:rise linear forwards;
+ text-shadow:0 0 12px #ed9eb8
+}
+@keyframes rise{
+ to{transform:translateY(-110vh) rotate(360deg);opacity:0}
+}
+@keyframes float{
+ 0%,100%{transform:translateY(0)}
+ 50%{transform:translateY(-12px)}
+}
+@keyframes pulse{
+ 50%{transform:scale(1.2);text-shadow:0 0 25px #ef9dbd}
+}
+@media(max-width:600px){
+ header{min-height:82vh}
+ .gallery{padding-left:15px;padding-right:15px}
+ .memory{margin-bottom:45px}
+ .letter{padding:27px 20px;margin:20px 16px 70px}
+ .letter p{font-size:21px}
+ .letter h2{font-size:29px}
+}
+</style>
+</head>
+
+<body>
+
+<div id="lock">
+ <div class="lock-card">
+  <div class="lock-heart">♥</div>
+  <h1>For Dija</h1>
+  <p>A little world made only for you</p>
+  <input id="password" type="password" inputmode="numeric"
+   placeholder="••••••" maxlength="6">
+  <button id="unlock">Open My Heart ♡</button>
+  <div id="error"></div>
+ </div>
+</div>
+
+<audio id="music" loop preload="auto">
+ <source src="PUT_SONG_MP3_LINK_HERE" type="audio/mpeg">
+</audio>
+
+<button class="music" id="musicBtn" style="display:none">
+ ♫ Music: ON
+</button>
+
+<div id="site">
+
+<header>
+ <div class="eyebrow">A STORY WRITTEN WITH LOVE</div>
+ <h1>My Dearest Dija</h1>
+ <div class="sub">You are my favorite part of every story.</div>
+ <div class="scroll">SCROLL TO FEEL MY LOVE ↓</div>
+</header>
+
+<section class="gallery">
+ <h2 class="section-title">Beautiful Moments ♡</h2>
+
+ <div class="memory">
+  <div class="photo-frame">
+   <img src="https://raw.githubusercontent.com/empiresilver39-afk/Shobr/main/09e9f133-70d6-4bd1-9e8d-8df7fbbdd92c.jpeg" alt="Our memory 1">
+  </div>
+  <div class="photo-caption">Your smile makes everything brighter.</div>
+ </div>
+
+ <div class="memory">
+  <div class="photo-frame">
+   <img src="https://raw.githubusercontent.com/empiresilver39-afk/Shobr/main/0dc58916-5bf6-42c1-912c-cc7356badf0a.jpeg" alt="Our memory 2">
+  </div>
+  <div class="photo-caption">Every moment with you is special.</div>
+ </div>
+
+ <div class="memory">
+  <div class="photo-frame">
+   <img src="https://raw.githubusercontent.com/empiresilver39-afk/Shobr/main/2aa3c276-d7a7-4c84-a307-7b5dbe7deefa.jpeg" alt="Our memory 3">
+  </div>
+  <div class="photo-caption">You make ordinary days unforgettable.</div>
+ </div>
+
+ <div class="memory">
+  <div class="photo-frame">
+   <img src="https://raw.githubusercontent.com/empiresilver39-afk/Shobr/main/3f216968-baed-461a-b2a6-2edb30658696.jpeg" alt="Our memory 4">
+  </div>
+  <div class="photo-caption">And I would choose you, every time.</div>
+ </div>
+</section>
+
+<section class="letter">
+ <h2>To My Dearest Dija ❤️</h2>
+
+ <p>My dearest Dija,</p>
+
+ <p>
+ I don't think words can fully capture what you mean to me,
+ but I'll try. From the moment you came into my life,
+ everything became brighter. Your smile is my favorite sight,
+ your laugh is my favorite sound, and your heart is the safest
+ place I've ever known.
+ </p>
+
+ <p>
+ Thank you for being patient with me, for believing in me,
+ and for loving me the way you do. Every day with you feels
+ like a gift I never want to lose.
+ </p>
+
+ <p>
+ I love you more than I can say, Dija. Today, tomorrow,
+ and always.
+ </p>
+
+ <div class="signature">Forever yours ❤️</div>
+</section>
+
+<footer>
+ Made with all my love, just for you, Dija.
+ <div style="font-size:27px;margin-top:15px">∞ ❤️</div>
+</footer>
+
+</div>
+
+<script>
+const lock = document.getElementById('lock');
+const site = document.getElementById('site');
+const password = document.getElementById('password');
+const error = document.getElementById('error');
+const music = document.getElementById('music');
+const musicBtn = document.getElementById('musicBtn');
+
+function unlockSite(){
+ if(password.value !== '532024'){
+  error.textContent = 'Try again, my love ❤️';
+  password.value = '';
+  return;
+ }
+
+ lock.style.display = 'none';
+ site.style.display = 'block';
+ musicBtn.style.display = 'block';
+
+ music.play().catch(()=>{});
+ window.scrollTo(0,0);
+ revealPhotos();
+}
+
+document.getElementById('unlock').addEventListener('click',unlockSite);
+password.addEventListener('keydown',e=>{
+ if(e.key === 'Enter') unlockSite();
+});
+
+musicBtn.addEventListener('click',()=>{
+ if(music.paused){
+  music.play().catch(()=>{});
+  musicBtn.textContent='♫ Music: ON';
+ }else{
+  music.pause();
+  musicBtn.textContent='♫ Music: OFF';
+ }
+});
+
+function revealPhotos(){
+ const observer = new IntersectionObserver(entries=>{
+  entries.forEach(entry=>{
+   if(entry.isIntersecting){
+    entry.target.classList.add('show');
+    observer.unobserve(entry.target);
+   }
+  });
+ },{threshold:.12});
+
+ document.querySelectorAll('.memory').forEach(el=>observer.observe(el));
+}
+
+function createHeart(){
+ const heart=document.createElement('div');
+ heart.className='heart';
+ heart.textContent=['♥','♡','✧','❤'][Math.floor(Math.random()*4)];
+ heart.style.left=Math.random()*100+'vw';
+ heart.style.fontSize=(12+Math.random()*22)+'px';
+ const duration=5+Math.random()*6;
+ heart.style.animationDuration=duration+'s';
+ document.body.appendChild(heart);
+ setTimeout(()=>heart.remove(),duration*1000);
+}
+
+setInterval(()=>{
+ if(site.style.display==='block') createHeart();
+},750);
+</script>
+
+</body>
+</html>
