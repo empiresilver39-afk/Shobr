@@ -4,330 +4,590 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#100811">
+<meta name="theme-color" content="#160d18">
 <title>My Dearest Dija ❤️</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
 
 <style>
-*{box-sizing:border-box}
-:root{--gold:#e9c6b5;--pink:#f2b9ca;--bg:#100811}
-body{
- margin:0;background:var(--bg);color:#fff;
- font-family:'Cormorant Garamond',serif;
- overflow-x:hidden;
+:root {
+  --pink: #e9a9bd;
+  --cream: #fff2ed;
+  --bg: #160d18;
 }
-body:before{
- content:"";position:fixed;inset:0;pointer-events:none;
- background:
- radial-gradient(ellipse at 20% 20%,#54223b55,transparent 55%),
- radial-gradient(ellipse at 80% 80%,#39204455,transparent 55%);
- z-index:-1;
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--cream);
+  font-family: 'Poppins', sans-serif;
+  overflow-x: hidden;
 }
-#lock{
- position:fixed;inset:0;z-index:1000;
- display:flex;align-items:center;justify-content:center;
- background:linear-gradient(145deg,#100811,#281323,#100811);
- padding:25px;
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    radial-gradient(ellipse at 20% 10%, #6c294c55, transparent 45%),
+    radial-gradient(ellipse at 90% 80%, #48204e55, transparent 45%);
 }
-.lock-card{text-align:center;width:100%;max-width:360px}
-.lock-heart{font-size:48px;color:#e9a9bd;animation:pulse 2s infinite}
-.lock-card h1{
- font-family:'Playfair Display',serif;font-weight:400;
- font-size:35px;color:#f2d7dc
+
+button, input { font: inherit; }
+
+/* PASSWORD SCREEN */
+#lockScreen {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 25px;
+  background:
+    radial-gradient(circle at center, #49233e, #160d18 70%);
+  transition: opacity .8s ease, visibility .8s ease;
 }
-.lock-card p{color:#c9aab5;font-size:19px}
-#password{
- width:100%;padding:16px;border:1px solid #a66b8066;
- background:#ffffff0b;color:white;text-align:center;
- border-radius:30px;font-size:22px;letter-spacing:8px;
- outline:none;margin:18px 0
+
+#lockScreen.hide {
+  opacity: 0;
+  visibility: hidden;
 }
-#unlock{
- width:100%;padding:15px;border:0;border-radius:30px;
- background:linear-gradient(100deg,#c8879e,#e9b9c9);
- color:#29101c;font-size:18px;font-weight:bold;
- cursor:pointer
+
+.lock-card {
+  width: min(100%, 390px);
+  text-align: center;
+  padding: 42px 28px;
+  border: 1px solid #ffffff25;
+  border-radius: 25px;
+  background: #ffffff0b;
+  backdrop-filter: blur(18px);
+  box-shadow: 0 20px 80px #0005;
 }
-#error{color:#ff9cae;min-height:25px}
-#site{display:none}
-header{
- min-height:90vh;display:flex;flex-direction:column;
- align-items:center;justify-content:center;text-align:center;
- padding:35px 20px;position:relative;
+
+.lock-heart {
+  font-size: 45px;
+  animation: heartbeat 1.5s infinite;
 }
-.eyebrow{color:var(--gold);letter-spacing:7px;font-size:13px}
-header h1{
- font-family:'Playfair Display',serif;
- font-weight:400;font-size:clamp(48px,12vw,85px);
- margin:20px 0;color:#f5d9df;
- text-shadow:0 0 35px #e99ab655;
+
+.lock-card h1 {
+  font: 400 35px 'Playfair Display', serif;
+  margin: 15px 0 8px;
 }
-header .sub{font-size:25px;color:#d9b9c4;font-style:italic}
-.scroll{
- margin-top:65px;color:#d6a8b8;letter-spacing:4px;
- font-size:13px;animation:float 2.5s infinite
+
+.lock-card p {
+  color: #e9cbd6;
+  font-size: 13px;
+  font-weight: 300;
 }
-.music{
- position:fixed;top:18px;right:18px;z-index:50;
- background:#2b1725dd;border:1px solid #e8b7c477;
- color:#f4d9e0;padding:11px 17px;border-radius:30px;
- cursor:pointer;backdrop-filter:blur(10px)
+
+#password {
+  width: 100%;
+  margin-top: 22px;
+  padding: 15px;
+  border: 1px solid #ffffff35;
+  border-radius: 30px;
+  outline: none;
+  background: #ffffff10;
+  color: white;
+  text-align: center;
+  letter-spacing: 8px;
+  font-size: 20px;
 }
-.gallery{max-width:900px;margin:auto;padding:15px 22px 70px}
-.memory{
- position:relative;margin:0 auto 65px;
- width:100%;max-width:600px;
- perspective:1200px;
- opacity:0;transform:translateY(80px) scale(.94);
- transition:opacity 1.1s ease,transform 1.1s cubic-bezier(.2,.8,.2,1)
+
+#password::placeholder {
+  color: #c9aab8;
+  letter-spacing: 2px;
+  font-size: 13px;
 }
-.memory.show{opacity:1;transform:translateY(0) scale(1)}
-.memory:nth-child(even){transform:translateY(80px) scale(.94) rotateY(-5deg)}
-.memory:nth-child(even).show{transform:translateY(0) scale(1) rotateY(0)}
-.photo-frame{
- padding:10px;background:linear-gradient(145deg,#f5d6d5,#9b687d,#f0c7c6);
- border-radius:5px;
- box-shadow:0 25px 70px #0009,0 0 35px #e6a3bd22;
- overflow:hidden;position:relative;
+
+#unlock {
+  width: 100%;
+  margin-top: 15px;
+  padding: 14px;
+  border: 0;
+  border-radius: 30px;
+  color: #301522;
+  background: linear-gradient(120deg, #f4c7d4, #d88ba9);
+  cursor: pointer;
+  transition: transform .3s;
 }
-.photo-frame img{
- width:100%;display:block;max-height:690px;
- object-fit:cover;border-radius:3px;
- transition:transform 1.5s cubic-bezier(.2,.7,.2,1),filter 1.5s;
+
+#unlock:active { transform: scale(.96); }
+
+#error {
+  min-height: 20px;
+  color: #ffb3c7;
+  font-size: 12px;
 }
-.memory.show img{transform:scale(1.025)}
-.photo-frame:after{
- content:"";position:absolute;inset:0;pointer-events:none;
- background:linear-gradient(115deg,transparent 35%,#ffffff25 50%,transparent 65%);
- transform:translateX(-130%);
- transition:transform 1.4s ease .4s
+
+/* MAIN PAGE */
+#main {
+  position: relative;
+  z-index: 1;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 1.2s ease;
 }
-.memory.show .photo-frame:after{transform:translateX(130%)}
-.photo-caption{
- text-align:center;font-style:italic;
- font-size:23px;color:#eac8d1;padding:17px
+
+#main.show {
+  opacity: 1;
+  visibility: visible;
 }
-.section-title{
- text-align:center;color:#eac6d0;
- font-family:'Playfair Display',serif;
- font-size:38px;font-weight:400;margin:35px 0 45px
+
+.hero {
+  min-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 70px 20px 45px;
 }
-.letter{
- max-width:720px;margin:30px auto 100px;padding:35px 27px;
- border:1px solid #d8a9b633;
- background:linear-gradient(145deg,#ffffff09,#ffffff03);
- box-shadow:0 20px 70px #0005;
- border-radius:8px;
+
+.small-line {
+  color: var(--pink);
+  letter-spacing: 5px;
+  font-size: 10px;
+  text-transform: uppercase;
+  margin-bottom: 22px;
 }
-.letter h2{
- font-family:'Playfair Display',serif;
- color:#f0cbd4;font-size:35px;font-weight:400;
- text-align:center;margin:0 0 30px
+
+.hero h1 {
+  font: 400 clamp(43px, 10vw, 76px) 'Playfair Display', serif;
+  line-height: 1.12;
+  margin: 0;
+  text-shadow: 0 0 35px #e9a9bd33;
 }
-.letter p{
- font-size:23px;line-height:1.8;color:#e8d5dc;
- margin:0 0 19px
+
+.hero h1 span {
+  display: block;
+  color: var(--pink);
+  font-style: italic;
 }
-.signature{
- text-align:right;color:#f0b9ca;
- font-size:27px;font-style:italic;margin-top:30px
+
+.hero p {
+  max-width: 450px;
+  color: #e8cbd6;
+  font-size: 13px;
+  font-weight: 300;
+  line-height: 2;
+  margin-top: 25px;
 }
-footer{
- text-align:center;padding:35px 15px 65px;
- color:#cba8b5;font-size:18px
+
+.scroll {
+  margin-top: 55px;
+  color: #e9a9bd;
+  font-size: 11px;
+  letter-spacing: 3px;
+  animation: float 2s infinite;
 }
-.heart{
- position:fixed;bottom:-30px;pointer-events:none;
- z-index:10;color:#ed9eb8;
- animation:rise linear forwards;
- text-shadow:0 0 12px #ed9eb8
+
+/* PHOTO GALLERY */
+.section-title {
+  text-align: center;
+  padding: 30px 20px 45px;
 }
-@keyframes rise{
- to{transform:translateY(-110vh) rotate(360deg);opacity:0}
+
+.section-title h2 {
+  font: 400 clamp(30px, 7vw, 44px) 'Playfair Display', serif;
+  margin: 0;
 }
-@keyframes float{
- 0%,100%{transform:translateY(0)}
- 50%{transform:translateY(-12px)}
+
+.section-title p {
+  color: #cba9b8;
+  font-size: 12px;
+  letter-spacing: 2px;
+  margin-top: 12px;
 }
-@keyframes pulse{
- 50%{transform:scale(1.2);text-shadow:0 0 25px #ef9dbd}
+
+.gallery {
+  width: min(100% - 34px, 920px);
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
 }
-@media(max-width:600px){
- header{min-height:82vh}
- .gallery{padding-left:15px;padding-right:15px}
- .memory{margin-bottom:45px}
- .letter{padding:27px 20px;margin:20px 16px 70px}
- .letter p{font-size:21px}
- .letter h2{font-size:29px}
+
+.photo {
+  position: relative;
+  overflow: hidden;
+  border-radius: 17px;
+  background: #291b2a;
+  border: 1px solid #ffffff22;
+  box-shadow: 0 18px 45px #0005;
+  aspect-ratio: 3 / 4;
+  opacity: 0;
+  transform: translateY(45px) scale(.96);
+  transition:
+    opacity 1s ease,
+    transform 1s cubic-bezier(.2,.8,.2,1);
+}
+
+.photo.visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.photo img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  transition: transform 1.3s cubic-bezier(.2,.7,.2,1), filter 1s;
+  filter: saturate(.88);
+}
+
+.photo:hover img {
+  transform: scale(1.09);
+  filter: saturate(1.12);
+}
+
+.photo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(145deg, #ffffff20, transparent 40%, #0003);
+  opacity: .65;
+}
+
+.photo:nth-child(3) {
+  grid-column: 1 / -1;
+  aspect-ratio: 16 / 10;
+}
+
+.photo:nth-child(3) img {
+  object-position: center 45%;
+}
+
+.photo:nth-child(4) {
+  grid-column: 1 / -1;
+  aspect-ratio: 16 / 10;
+}
+
+.photo:nth-child(4) img {
+  object-position: center 40%;
+}
+
+/* LOVE LETTER */
+.letter-wrap {
+  padding: 100px 20px 80px;
+}
+
+.letter {
+  max-width: 650px;
+  margin: auto;
+  padding: clamp(28px, 7vw, 55px);
+  border: 1px solid #e9a9bd44;
+  border-radius: 22px;
+  background: linear-gradient(145deg, #ffffff0d, #ffffff04);
+  box-shadow: 0 25px 80px #0004;
+  text-align: center;
+}
+
+.letter .to {
+  color: var(--pink);
+  font-size: 11px;
+  letter-spacing: 4px;
+  margin-bottom: 25px;
+}
+
+.letter h2 {
+  font: italic 400 clamp(31px, 7vw, 43px) 'Playfair Display', serif;
+  margin: 0 0 28px;
+}
+
+.letter p {
+  color: #f0dce3;
+  font: 300 14px/2.2 'Poppins', sans-serif;
+  text-align: left;
+}
+
+.letter .signature {
+  margin-top: 30px;
+  color: var(--pink);
+  font: italic 25px 'Playfair Display', serif;
+  text-align: center;
+}
+
+/* MUSIC BUTTON */
+.music-area {
+  text-align: center;
+  padding: 0 20px 90px;
+}
+
+.music-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 15px 27px;
+  border: 1px solid #e9a9bd88;
+  border-radius: 40px;
+  background: #e9a9bd12;
+  color: #ffe6ee;
+  cursor: pointer;
+  transition: .3s;
+}
+
+.music-button:hover {
+  background: #e9a9bd2b;
+  transform: translateY(-3px);
+}
+
+.music-note {
+  display: inline-block;
+  animation: music 1s infinite alternate;
+}
+
+footer {
+  text-align: center;
+  padding: 30px 15px 45px;
+  color: #bd9aaa;
+  font: italic 17px 'Playfair Display', serif;
+}
+
+footer span { color: var(--pink); }
+
+/* FLOATING HEARTS */
+.heart {
+  position: fixed;
+  bottom: -30px;
+  z-index: 5;
+  pointer-events: none;
+  color: #f0a9c1;
+  opacity: 0;
+  animation: rise linear forwards;
+}
+
+@keyframes rise {
+  0% { transform: translateY(0) rotate(0); opacity: 0; }
+  15% { opacity: .7; }
+  100% { transform: translateY(-110vh) rotate(35deg); opacity: 0; }
+}
+
+@keyframes heartbeat {
+  0%,100% { transform: scale(1); }
+  50% { transform: scale(1.15); }
+}
+
+@keyframes float {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(9px); }
+}
+
+@keyframes music {
+  from { transform: translateY(0); }
+  to { transform: translateY(-5px); }
+}
+
+@media (max-width: 520px) {
+  .gallery { gap: 12px; width: calc(100% - 24px); }
+  .photo { border-radius: 12px; }
+  .photo:nth-child(3), .photo:nth-child(4) {
+    aspect-ratio: 4 / 3;
+  }
+  .letter-wrap { padding-top: 75px; }
+  .letter p { font-size: 13px; }
 }
 </style>
 </head>
 
 <body>
 
-<div id="lock">
- <div class="lock-card">
-  <div class="lock-heart">♥</div>
-  <h1>For Dija</h1>
-  <p>A little world made only for you</p>
-  <input id="password" type="password" inputmode="numeric"
-   placeholder="••••••" maxlength="6">
-  <button id="unlock">Open My Heart ♡</button>
-  <div id="error"></div>
- </div>
+<div id="lockScreen">
+  <div class="lock-card">
+    <div class="lock-heart">♡</div>
+    <h1>For My Dija</h1>
+    <p>A little place made with love, just for you.</p>
+    <input id="password" type="password" inputmode="numeric"
+      placeholder="Enter our secret password" maxlength="6">
+    <button id="unlock">Open My Heart ♡</button>
+    <div id="error"></div>
+  </div>
 </div>
 
-<audio id="music" loop preload="auto">
- <source src="PUT_SONG_MP3_LINK_HERE" type="audio/mpeg">
+<main id="main">
+
+  <section class="hero">
+    <div class="small-line">A LITTLE PLACE FOR US</div>
+    <h1>My Dearest <span>Dija</span></h1>
+    <p>
+      Some moments become memories, and some people become
+      a beautiful part of our hearts.
+    </p>
+    <div class="scroll">SCROLL DOWN ♡</div>
+  </section>
+
+  <section>
+    <div class="section-title">
+      <h2>Our Little Moments</h2>
+      <p>FOUR PHOTOS · A MILLION MEMORIES</p>
+    </div>
+
+    <div class="gallery">
+      <div class="photo">
+        <img
+          src="https://raw.githubusercontent.com/empiresilver39-afk/Shobr/refs/heads/main/09e9f133-70d6-4bd1-9e8d-8df7fbbdd92c.jpeg"
+          alt="Our memory one">
+      </div>
+
+      <div class="photo">
+        <img
+          src="https://raw.githubusercontent.com/empiresilver39-afk/Shobr/refs/heads/main/0dc58916-5bf6-42c1-912c-cc7356badf0a.jpeg"
+          alt="Our memory two">
+      </div>
+
+      <div class="photo">
+        <img
+          src="https://raw.githubusercontent.com/empiresilver39-afk/Shobr/refs/heads/main/2aa3c276-d7a7-4c84-a307-7b5dbe7deefa.jpeg"
+          alt="Our memory three">
+      </div>
+
+      <div class="photo">
+        <img
+          src="https://raw.githubusercontent.com/empiresilver39-afk/Shobr/refs/heads/main/3f216968-baed-461a-b2a6-2edb30658696.jpeg"
+          alt="Our memory four">
+      </div>
+    </div>
+  </section>
+
+  <section class="letter-wrap">
+    <div class="letter">
+      <div class="to">A LETTER FROM MY HEART</div>
+      <h2>My dearest Dija,</h2>
+
+      <p>
+        I don't think words can fully capture what you mean to me,
+        but I'll try. From the moment you came into my life,
+        everything became brighter. Your smile is my favorite sight,
+        your laugh is my favorite sound, and your heart is the safest
+        place I've ever known.
+      </p>
+
+      <p>
+        Thank you for being patient with me, for believing in me,
+        and for loving me the way you do. Every day with you feels
+        like a gift I never want to lose.
+      </p>
+
+      <p>
+        I love you more than I can say, Dija. Today, tomorrow,
+        and always.
+      </p>
+
+      <div class="signature">Forever yours ❤️</div>
+    </div>
+  </section>
+
+  <section class="music-area">
+    <button class="music-button" id="musicButton">
+      <span class="music-note">♫</span>
+      <span id="musicText">Play our song</span>
+      <span>♡</span>
+    </button>
+  </section>
+
+  <footer>
+    Made with love, just for <span>Dija</span> ♡
+  </footer>
+
+</main>
+
+<audio id="song" loop preload="auto">
+  <source src="https://raw.githubusercontent.com/empiresilver39-afk/-/refs/heads/main/12.Khaleny_Zekra%202.mp3" type="audio/mpeg">
 </audio>
 
-<button class="music" id="musicBtn" style="display:none">
- ♫ Music: ON
-</button>
-
-<div id="site">
-
-<header>
- <div class="eyebrow">A STORY WRITTEN WITH LOVE</div>
- <h1>My Dearest Dija</h1>
- <div class="sub">You are my favorite part of every story.</div>
- <div class="scroll">SCROLL TO FEEL MY LOVE ↓</div>
-</header>
-
-<section class="gallery">
- <h2 class="section-title">Beautiful Moments ♡</h2>
-
- <div class="memory">
-  <div class="photo-frame">
-   <img src="https://raw.githubusercontent.com/empiresilver39-afk/Shobr/main/09e9f133-70d6-4bd1-9e8d-8df7fbbdd92c.jpeg" alt="Our memory 1">
-  </div>
-  <div class="photo-caption">Your smile makes everything brighter.</div>
- </div>
-
- <div class="memory">
-  <div class="photo-frame">
-   <img src="https://raw.githubusercontent.com/empiresilver39-afk/Shobr/main/0dc58916-5bf6-42c1-912c-cc7356badf0a.jpeg" alt="Our memory 2">
-  </div>
-  <div class="photo-caption">Every moment with you is special.</div>
- </div>
-
- <div class="memory">
-  <div class="photo-frame">
-   <img src="https://raw.githubusercontent.com/empiresilver39-afk/Shobr/main/2aa3c276-d7a7-4c84-a307-7b5dbe7deefa.jpeg" alt="Our memory 3">
-  </div>
-  <div class="photo-caption">You make ordinary days unforgettable.</div>
- </div>
-
- <div class="memory">
-  <div class="photo-frame">
-   <img src="https://raw.githubusercontent.com/empiresilver39-afk/Shobr/main/3f216968-baed-461a-b2a6-2edb30658696.jpeg" alt="Our memory 4">
-  </div>
-  <div class="photo-caption">And I would choose you, every time.</div>
- </div>
-</section>
-
-<section class="letter">
- <h2>To My Dearest Dija ❤️</h2>
-
- <p>My dearest Dija,</p>
-
- <p>
- I don't think words can fully capture what you mean to me,
- but I'll try. From the moment you came into my life,
- everything became brighter. Your smile is my favorite sight,
- your laugh is my favorite sound, and your heart is the safest
- place I've ever known.
- </p>
-
- <p>
- Thank you for being patient with me, for believing in me,
- and for loving me the way you do. Every day with you feels
- like a gift I never want to lose.
- </p>
-
- <p>
- I love you more than I can say, Dija. Today, tomorrow,
- and always.
- </p>
-
- <div class="signature">Forever yours ❤️</div>
-</section>
-
-<footer>
- Made with all my love, just for you, Dija.
- <div style="font-size:27px;margin-top:15px">∞ ❤️</div>
-</footer>
-
-</div>
-
 <script>
-const lock = document.getElementById('lock');
-const site = document.getElementById('site');
-const password = document.getElementById('password');
-const error = document.getElementById('error');
-const music = document.getElementById('music');
-const musicBtn = document.getElementById('musicBtn');
+const correctPassword = "532024";
 
-function unlockSite(){
- if(password.value !== '532024'){
-  error.textContent = 'Try again, my love ❤️';
-  password.value = '';
-  return;
- }
+const lockScreen = document.getElementById("lockScreen");
+const passwordInput = document.getElementById("password");
+const unlockButton = document.getElementById("unlock");
+const errorText = document.getElementById("error");
+const main = document.getElementById("main");
+const song = document.getElementById("song");
+const musicButton = document.getElementById("musicButton");
+const musicText = document.getElementById("musicText");
 
- lock.style.display = 'none';
- site.style.display = 'block';
- musicBtn.style.display = 'block';
+function openPage() {
+  if (passwordInput.value !== correctPassword) {
+    errorText.textContent = "That's not the right password. Try again ♡";
+    passwordInput.value = "";
+    return;
+  }
 
- music.play().catch(()=>{});
- window.scrollTo(0,0);
- revealPhotos();
-}
+  lockScreen.classList.add("hide");
+  main.classList.add("show");
 
-document.getElementById('unlock').addEventListener('click',unlockSite);
-password.addEventListener('keydown',e=>{
- if(e.key === 'Enter') unlockSite();
-});
-
-musicBtn.addEventListener('click',()=>{
- if(music.paused){
-  music.play().catch(()=>{});
-  musicBtn.textContent='♫ Music: ON';
- }else{
-  music.pause();
-  musicBtn.textContent='♫ Music: OFF';
- }
-});
-
-function revealPhotos(){
- const observer = new IntersectionObserver(entries=>{
-  entries.forEach(entry=>{
-   if(entry.isIntersecting){
-    entry.target.classList.add('show');
-    observer.unobserve(entry.target);
-   }
+  // Start the song after the visitor taps to unlock.
+  song.play().then(() => {
+    musicText.textContent = "Pause our song";
+  }).catch(() => {
+    musicText.textContent = "Play our song";
   });
- },{threshold:.12});
 
- document.querySelectorAll('.memory').forEach(el=>observer.observe(el));
+  setTimeout(() => {
+    lockScreen.style.display = "none";
+  }, 900);
+
+  revealPhotos();
+  setInterval(createHeart, 1100);
 }
 
-function createHeart(){
- const heart=document.createElement('div');
- heart.className='heart';
- heart.textContent=['♥','♡','✧','❤'][Math.floor(Math.random()*4)];
- heart.style.left=Math.random()*100+'vw';
- heart.style.fontSize=(12+Math.random()*22)+'px';
- const duration=5+Math.random()*6;
- heart.style.animationDuration=duration+'s';
- document.body.appendChild(heart);
- setTimeout(()=>heart.remove(),duration*1000);
+unlockButton.addEventListener("click", openPage);
+
+passwordInput.addEventListener("keydown", (event) => {
+  if (event.key === "Enter") openPage();
+});
+
+musicButton.addEventListener("click", async () => {
+  if (song.paused) {
+    try {
+      await song.play();
+      musicText.textContent = "Pause our song";
+    } catch (error) {
+      musicText.textContent = "Song could not play";
+    }
+  } else {
+    song.pause();
+    musicText.textContent = "Play our song";
+  }
+});
+
+function revealPhotos() {
+  const photos = document.querySelectorAll(".photo");
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("visible");
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  photos.forEach(photo => observer.observe(photo));
 }
 
-setInterval(()=>{
- if(site.style.display==='block') createHeart();
-},750);
+function createHeart() {
+  const heart = document.createElement("div");
+  heart.className = "heart";
+  heart.textContent = Math.random() > .5 ? "♡" : "♥";
+  heart.style.left = Math.random() * 100 + "vw";
+  heart.style.fontSize = (12 + Math.random() * 18) + "px";
+  heart.style.animationDuration = (7 + Math.random() * 6) + "s";
+
+  document.body.appendChild(heart);
+  setTimeout(() => heart.remove(), 14000);
+}
 </script>
 
 </body>
